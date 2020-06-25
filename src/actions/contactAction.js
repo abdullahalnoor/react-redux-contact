@@ -11,6 +11,12 @@ export const getContacts = () => async dispatch =>   {
    
 }
 
+export const getContact = () =>   {
+    return {
+        type:GET_CONTACT,
+    }
+}
+
 export const  addContact = contact => async dispatch => {
     const res = await axios.post("https://jsonplaceholder.typicode.com/users/",contact)
     dispatch ({
