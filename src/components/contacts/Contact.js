@@ -3,17 +3,35 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
-import { deleteContact } from '../../actions/contactAction'
+
+import { singleAction} from '../../actions/contactAction'
+
+
 
 class Contact extends Component {
   state = {
-    showContactInfo: false
+    showContactInfo: false,
+   
+
   };
+  
+
 
   onDeleteClick = id => {
     //// DELETE CONTACT ////
-    this.props.deleteContact(id)
+    
+   const payload = {id:id,type:"deleteContact"}
+    this.props.singleAction(payload)
   };
+  editContact = id => {
+    const payload = {id:id,type:"setContact"}
+    this.props.singleAction(payload)
+    // let route 
+    // this.props.history.push('/');
+    // let history = useHistory();
+    this.props.history.push(`/contact/edit/${id}`);
+
+  }
 
   render() {
     const { id, name, email, phone } = this.props.contact;
@@ -37,9 +55,10 @@ class Contact extends Component {
             style={{ cursor: 'pointer', float: 'right', color: 'red' }}
             onClick={this.onDeleteClick.bind(this, id)}
           />
-          <Link to={`contact/edit/${id}`}>
+          {/* <Link to={`contact/edit/${id}`}> */}
             <i
               className="fas fa-pencil-alt"
+              onClick={this.editContact.bind(this,id)}
               style={{
                 cursor: 'pointer',
                 float: 'right',
@@ -47,7 +66,7 @@ class Contact extends Component {
                 marginRight: '1rem'
               }}
             />
-          </Link>
+          {/* </Link> */}
         </h4>
         {showContactInfo ? (
           <ul className="list-group">
@@ -64,4 +83,5 @@ Contact.propTypes = {
   contact: PropTypes.object.isRequired
 };
 
-export default connect(null,{deleteContact})(Contact);
+
+export default connect(null,{singleAction})(Contact);
