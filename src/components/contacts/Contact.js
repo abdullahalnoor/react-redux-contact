@@ -25,9 +25,7 @@ class Contact extends Component {
   editContact = id => {
     const payload = {id:id,type:"setContact"}
     this.props.singleAction(payload)
-    // let route 
-    // this.props.history.push('/');
-    // let history = useHistory();
+    
     this.props.history.push(`/contact/edit/${id}`);
 
   }
